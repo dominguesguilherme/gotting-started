@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  app:
+    build: 
+      context: .
+      args: 
+        - APP_HOME
+        - PORT
+        - APP_NAME
+    command: reflex -r "\.go$$" -s -- sh -c "go run ./"
+    restart: "unless-stopped"
+    volumes:
+      - .:${APP_HOME}
+    ports:
+      - "2345:2345"
+      - "8080:8080"
+    env_file:
+      - ./.env
